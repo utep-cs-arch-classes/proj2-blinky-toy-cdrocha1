@@ -4,6 +4,8 @@
 
 #include "led.h"
 
+#include "buzzer.h"
+
 static char count_state = 0;
 
 char toggle_red()/* always toggle! */
@@ -12,8 +14,6 @@ char toggle_red()/* always toggle! */
 
   static char state = 0;
 
-
-
   switch (state) {
 
   case 0:
@@ -21,7 +21,7 @@ char toggle_red()/* always toggle! */
     red_on = 1;
 
     state = 1;
-
+ 
     break;
 
   case 1:
@@ -61,6 +61,29 @@ char toggle_green()/* always on or off*/
 }
 
 
+void toggle_green_25(){
+  static char state = 0;
+  switch(state){
+  case 0:
+    green_on = 0;
+    state = 1;
+    break;
+  case 1:
+    green_on = 0;
+    state = 2;
+    break;
+  case 2:
+    green_on = 1;
+    state = 3;
+    break;
+  case 3:
+    green_on = 0;
+    state = 0;
+    break;
+  }
+  led_changed = 1;
+  led_update();
+}
 
 
 
@@ -96,21 +119,25 @@ void count_to_three(){
   case 0:
     red_on = 0;
     green_on = 0;
+    buzzer_set_period(350-20);
     state = 1;
     break;
   case 1:
     red_on = 0;
     green_on = 1;
     state = 2;
+    buzzer_set_period(300-6);
     break;
   case 2:
     red_on = 1;
     green_on = 0;
     state = 3;
+    buzzer_set_period(280-18);
     break;
   case 3:
     red_on = 1;
     green_on = 1;
+    buzzer_set_period(300-6);
     state = 0;
     break;
   }

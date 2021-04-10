@@ -10,9 +10,9 @@ __interrupt_vec(WDT_VECTOR) WDT(){/* 250 interrupts/sec */
 
   static char blink_count = 0;
 
-  if (++blink_count == 155){
+  if (++blink_count == 1){
 
-    count_to_three();
+    toggle_green_25();
 
     blink_count = 0;
 
