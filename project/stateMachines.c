@@ -8,12 +8,13 @@
 
 static char count_state = 0;
 
-char toggle_red()/* always toggle! */
+void toggle_red()/* always toggle! */
 
 {
 
   static char state = 0;
-
+  red_on = 1;
+  
   switch (state) {
 
   case 0:
@@ -26,16 +27,14 @@ char toggle_red()/* always toggle! */
 
   case 1:
 
-    red_on = 0;
+    red_on = 1;
 
     state = 0;
 
     break;
 
   }
-
-  return 1;/* always changes an led */
-
+  
 }
 
 
@@ -52,7 +51,7 @@ char toggle_green()/* always on or off*/
     state = 1;
     break;
   case 1:
-    green_on = 0;
+    green_on = 1;
     state = 0;
     break;
   }
@@ -61,7 +60,7 @@ char toggle_green()/* always on or off*/
 }
 
 
-void toggle_green_25(){
+void change_red(){
   static char state = 0;
   switch(state){
   case 0:
@@ -69,15 +68,33 @@ void toggle_green_25(){
     state = 1;
     break;
   case 1:
-    green_on = 0;
+    green_on = 1;
+    state = 0;
+    break;
+  }
+}
+
+void toggle_green_20(){  //function that turns red led on at 100% and green led at 25%
+  static char state = 0;
+  switch(state){
+  case 0:
+    red_on = 0;
+    state = 1;
+    break;
+  case 1:
+    red_on = 0;
     state = 2;
     break;
   case 2:
-    green_on = 1;
+    red_on = 1;
     state = 3;
     break;
   case 3:
-    green_on = 0;
+    red_on = 0;
+    state = 4;
+    break;
+  case 4:
+    red_on = 0;
     state = 0;
     break;
   }
@@ -85,9 +102,9 @@ void toggle_green_25(){
   led_update();
 }
 
+/*
 
-
-void state_advance()/* alternate between toggling red & green */
+void state_advance(){
 
 {
 
@@ -112,6 +129,9 @@ void state_advance()/* alternate between toggling red & green */
   led_update();
 
 }
+*/
+
+
 
 void count_to_three(){
   static char state = 0;

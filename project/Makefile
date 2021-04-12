@@ -11,7 +11,7 @@ AS              = msp430-elf-as
 all: Main.elf 
 
 #additional rules for files
-Main.elf: ${COMMON_OBJECTS} Main.o stateMachines.o led.o wdInterruptHandler.o p1_interrupt_handler.o switches.o buzzer.o Main.o ../demos/lib/libTimer.a
+Main.elf: ${COMMON_OBJECTS} Main.o stateMachines.o led.o function.o wdInterruptHandler.o p2_interrupt_handler.o switches.o buzzer.o Main.o ../demos/lib/libTimer.a
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 load: Main.elf
@@ -22,6 +22,8 @@ clean:
 
 led.o: led.c led.h
 
+function.o: stateMachines.h
+
 wdInterruptHandler.o: stateMachines.h
 
 stateMachines.o: led.h stateMachines.h
@@ -30,4 +32,4 @@ buzzer.c: buzzer.h
 
 buzzerMain.c: buzzer.h
 
-p1_interrupt_handler.o: p1_interrupt_handler.c
+p2_interrupt_handler.o: p2_interrupt_handler.c
